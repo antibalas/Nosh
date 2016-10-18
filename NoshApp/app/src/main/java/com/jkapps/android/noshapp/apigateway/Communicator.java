@@ -7,12 +7,11 @@ import java.net.URL;
 
 class Communicator {
 
-    private static String getResponse (final HttpURLConnection httpConnection)
+    private static String getResponse(final HttpURLConnection httpConnection)
             throws Exception {
 
         final StringBuilder result = new StringBuilder();
-        BufferedReader reader = null;
-        reader = new BufferedReader(new InputStreamReader
+        final BufferedReader reader = new BufferedReader(new InputStreamReader
                 (httpConnection.getInputStream()));
         try {
             for (String line; (line = reader.readLine()) != null;
@@ -22,18 +21,15 @@ class Communicator {
         return result.toString();
     }
 
-    static String performGetRequest (final URL url) throws Exception {
+    static String performGetRequest(final URL url) throws Exception {
 
-        String response;
-
+        final String response;
         final HttpURLConnection httpConnection =
                 (HttpURLConnection) url.openConnection();
         try {
             httpConnection.setRequestMethod("GET");
             response = getResponse(httpConnection);
-        } finally {
-            httpConnection.disconnect();
-        }
+        } finally { httpConnection.disconnect(); }
 
         return response;
     }
