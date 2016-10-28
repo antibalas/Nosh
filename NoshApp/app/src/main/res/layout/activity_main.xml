@@ -10,10 +10,73 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.jkapps.android.noshapp.MainActivity">
 
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ratingBar"
+        android:stepSize="0.5"
+        android:rating="0"
+        android:layout_marginTop="162dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_marginTop="21dp"
+        android:entries="@array/Dollars"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/ratingBar"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:id="@+id/spinner2"
+        android:entries="@array/Categories"
+        android:layout_below="@+id/spinner"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:textSize="40sp"
+        android:text="Feed Me"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:layout_below="@+id/spinner2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="19dp" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:id="@+id/textView2"/>
+        android:id="@+id/textView"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:layout_alignBottom="@+id/ratingBar"
+        android:layout_toEndOf="@+id/button"
+        android:layout_marginBottom="14dp"
+        android:text="Value" />
+
+    <TextView
+        android:text="Value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:layout_alignBaseline="@+id/spinner"
+        android:layout_alignBottom="@+id/spinner"
+        android:layout_alignStart="@+id/textView" />
+
+    <TextView
+        android:text="Value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView3"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:layout_alignBaseline="@+id/spinner2"
+        android:layout_alignBottom="@+id/spinner2"
+        android:layout_toEndOf="@+id/button" />
 
 </RelativeLayout>

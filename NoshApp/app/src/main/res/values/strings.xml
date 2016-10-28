@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Nosh App</string>
+
+    <string-array name="Dollars">
+        <item>$</item>
+        <item>$$</item>
+        <item>$$$</item>
+    </string-array>
+
+    <string-array name="Categories">
+        <item>Random</item>
+        <item>Pizza</item>
+        <item>Chinese</item>
+        <item>Burgers</item>
+    </string-array>
 </resources>
