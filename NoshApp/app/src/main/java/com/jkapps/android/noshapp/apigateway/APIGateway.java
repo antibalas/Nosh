@@ -39,7 +39,7 @@ public class APIGateway {
             (final String resource, final List<Pair<String, String>> params,
              final Deserializer deserializer) throws Exception {
         return deserializer.deserialize
-                (Communicator.performGetRequest (getURL(resource, params)));
+                (Communicator.performGetRequest(getURL(resource, params)));
     }
 
 }
