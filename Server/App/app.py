@@ -4,6 +4,7 @@ import requests
 import json
 
 YELP_BUSINESSES_SEARCH='https://api.yelp.com/v3/businesses/search'
+YELP_BUSINESS_INFO='https://api.yelp.com/v3/businesses/'
 
 def get_yelp_token():
     yelp_data = None
@@ -24,7 +25,8 @@ def strip_business_info(business_json):
         "coordinates" : business_json['coordinates'],
         "categories" : business_json['categories'],
         "url" : business_json['url'],
-        "name" : business_json['name']
+        "name" : business_json['name'],
+        "id" : business_json['id']
     }
     return business_json
 
@@ -42,17 +44,17 @@ def filter_businesses(business_json):
 #    price,
 #    rating,
 #    coordinates
-def strip_response(json_response):
+def strip_search_response(json_response):
     return map(strip_business_info, 
                filter(filter_businesses, json_response['businesses']))
 
-def send_request(headers, event):
-    return requests.get(YELP_BUSINESSES_SEARCH, headers=headers, params=event)
+def send_request(url, headers, event):
+    return requests.get(url, headers=headers, params=event)
 
-def get_response(request):
+def get_response(status_code, body):
     return {
-        "statusCode" : request.status_code,
-        "body" : strip_response(request.json()),
+        "statusCode" : status_code,
+        "body" : body,
         "headers" : {
             "Content-Type" : "application/json"
         }
@@ -71,5 +73,18 @@ def get_yelp_businesses(event, context):
     headers = {
         "Authorization": token["token_type"] + " " + token["access_token"]
     }
-    return get_response(send_request(headers, get_params(event)))
+    request = send_request(YELP_BUSINESSES_SEARCH, headers, get_params(event))
+    response = get_response(request.status_code, strip_search_response(request.json()))
+    return response
+
+def get_yelp_biz_info(event, context):
+    token = get_yelp_token()
+    headers = {
+        "Authorization": token["token_type"] + " " + token["access_token"]
+    }
+    id = event["id"]
+    url = YELP_BUSINESS_INFO + id
+    request = send_request(url, headers, {})
+    response = get_response(request.status_code, request.json())
+    return response
 
