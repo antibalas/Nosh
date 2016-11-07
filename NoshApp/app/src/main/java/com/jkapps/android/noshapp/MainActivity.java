@@ -8,6 +8,8 @@ import android.util.Pair;
 import com.jkapps.android.noshapp.apigateway.APIGateway;
 import com.jkapps.android.noshapp.apigateway.Business;
 import com.jkapps.android.noshapp.apigateway.deserializer.GetFromYelpDeserializer;
+import com.jkapps.android.noshapp.apigateway.getyelpbizinfo.YelpBizClient;
+import com.jkapps.android.noshapp.apigateway.getyelpbizinfo.YelpBizListener;
 
 import java.util.Stack;
 
@@ -56,10 +58,31 @@ public class MainActivity extends AppCompatActivity {
         }).start();
     }
 
+    private static void testYelpBiz(){
+        String id = "gary-danko-san-francisco";
+        YelpBizClient yelpBizClient = new YelpBizClient();
+        yelpBizClient.getYelpBizInfo(id, new YelpBizListener() {
+            @Override
+            public void success(com.jkapps.android.noshapp.apigateway.getyelpbizinfo.Business business) {
+                for (String photo : business.getPhotos()) {
+                    String message = "photo = " + photo;
+                    Log.d("Yelp Biz", message);
+                }
+            }
+
+            @Override
+            public void failure() {
+                Log.d("Yelp Biz", "FAILURE -- Could not get business");
+            }
+        });
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         testAPIGateway();
+        testYelpBiz();
     }
 }
