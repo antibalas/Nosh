@@ -1,11 +1,11 @@
 package com.jkapps.android.noshapp;
 
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
 
@@ -21,7 +21,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
-import com.google.android.gms.location.LocationServices;
+
 
 import java.util.Stack;
 
@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements
     protected String mLongitudeLabel;
     protected TextView mLatitudeText;
     protected TextView mLongitudeText;
+    public static double latitude, longitude;
 
     private static void testAPIGateway() {
         // we should do this with an AsyncTask
@@ -69,6 +70,9 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         testAPIGateway();
+
+        TextView location = (TextView) findViewById(R.id.Location);
+        location.setText(latalong());
     }
 
     @Override
@@ -84,7 +88,11 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onConnected(@Nullable Bundle bundle) {
+    public void onConnected(Bundle connectionHint) {
+
+    }
+
+    public String latalong(){
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -94,17 +102,23 @@ public class MainActivity extends AppCompatActivity implements
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
-            return;
         }
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        if (mLastLocation != null) {
-            mLatitudeText.setText(String.valueOf(mLastLocation.getLatitude()));
-            mLongitudeText.setText(String.valueOf(mLastLocation.getLongitude()));
+        if (mLastLocation!=null) {
+            longitude = mLastLocation.getLongitude();
+            latitude = mLastLocation.getLatitude();
         }
+        String lat = Double.toString(latitude);
+        String log = Double.toString(longitude);
+
+        String coord = String.format("Lat: %s, long: %s", lat, log);
+
+        return coord;
     }
 
     @Override
     public void onConnectionSuspended(int i) {
+        mGoogleApiClient.connect();
 
     }
 

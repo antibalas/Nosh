@@ -10,10 +10,14 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.jkapps.android.noshapp.MainActivity">
 
+
     <TextView
+        android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:id="@+id/textView2"/>
-
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="45dp"
+        android:id="@+id/Location" />
 </RelativeLayout>
