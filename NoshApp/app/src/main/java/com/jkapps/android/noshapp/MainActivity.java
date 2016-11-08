@@ -16,8 +16,7 @@ import com.jkapps.android.noshapp.apigateway.APIGateway;
 import com.jkapps.android.noshapp.apigateway.deserializer.GetFromYelpDeserializer;
 
 import android.location.Location;
-import android.widget.TextView;
-import android.widget.Toast;
+
 
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
@@ -31,10 +30,7 @@ public class MainActivity extends AppCompatActivity implements
     protected GoogleApiClient mGoogleApiClient;
     protected Location mLastLocation;
 
-    protected String mLatitudeLabel;
-    protected String mLongitudeLabel;
-    protected TextView mLatitudeText;
-    protected TextView mLongitudeText;
+
     public static double latitude, longitude;
 
     private static void testAPIGateway() {
@@ -71,8 +67,7 @@ public class MainActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_main);
         testAPIGateway();
 
-        TextView location = (TextView) findViewById(R.id.Location);
-        location.setText(latalong());
+
     }
 
     @Override
@@ -89,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onConnected(Bundle connectionHint) {
+
 
     }
 
