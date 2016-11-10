@@ -18,17 +18,21 @@ def get_yelp_token():
     res = requests.post("https://api.yelp.com/oauth2/token", data=request_data)
     return res.json()
 
+#this just makes sure that the key is in there first since yelp will not always
+#include all the values we want
+def strip_business_info_(business_json, key):
+    return business_json[key] if key in business_json else ''
+
 def strip_business_info(business_json):
     return {
-        "rating" : business_json['rating'],
-        "price" : business_json['price'],
-        "coordinates" : business_json['coordinates'],
-        "categories" : business_json['categories'],
-        "url" : business_json['url'],
-        "name" : business_json['name'],
-        "id" : business_json['id']
+        "rating" : strip_business_info_(business_json, 'rating'),
+        "price" : strip_business_info_(business_json, 'price'),
+        "coordinates" : strip_business_info_(business_json, 'coordinates'),
+        "categories" : strip_business_info_(business_json, 'categories'),
+        "url" : strip_business_info_(business_json, 'url'),
+        "name" : strip_business_info_(business_json, 'name'),
+        "id" : strip_business_info_(business_json, 'id')
     }
-    return business_json
 
 #Here we can filter out businesses we don't want (based on rating, categories,
 #etc.)
@@ -65,7 +69,7 @@ def get_response(status_code, body):
 def get_params(event):
     params = dict()
     for key in event:
-        if event[key] != "": params[key] = event[key]
+        if event[key] != '': params[key] = event[key]
     return params
 
 def get_yelp_businesses(event, context):
