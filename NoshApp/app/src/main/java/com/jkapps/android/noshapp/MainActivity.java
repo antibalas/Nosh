@@ -64,15 +64,18 @@ public class MainActivity extends AppCompatActivity implements
         Log.d(tag, "Coordinates: " + business.getCoordinates());
     }
 
-    private static void testAPIGateway() {
+    private void testAPIGateway() {
         // we should do this with an AsyncTask
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
+                    Pair<String,String> latalong = latalong();
                     Stack<Pair<String, String>> params = new Stack<>();
-                    params.push(new Pair<>("location", "Santa Cruz CA"));
+                    params.push(new Pair<>("latitude", latalong.first));
+                    params.push(new Pair<>("longitude", latalong.second));
                     params.push(new Pair<>("limit", "3"));
+
                     for (Business business :
                          APIGateway.hitGateway("getFromYelp", params,
                                                new GetFromYelpDeserializer())
@@ -118,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         testAPIGateway();
-        testYelpBiz();
+       // testYelpBiz();
 
         listenerForRatingBar();
         listenerForDollarSpinner();
@@ -195,7 +198,7 @@ public class MainActivity extends AppCompatActivity implements
 
     }
 
-    public String latalong(){
+    public Pair<String,String> latalong(){
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -214,9 +217,8 @@ public class MainActivity extends AppCompatActivity implements
         String lat = Double.toString(latitude);
         String log = Double.toString(longitude);
 
-        String coord = String.format("Lat: %s, long: %s", lat, log);
 
-        return coord;
+        return new Pair<>(lat,log);
     }
 
     @Override
