@@ -3,7 +3,6 @@ package com.jkapps.android.noshapp;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -33,6 +32,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Spinner;
 
+import android.content.Intent;
+import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity implements
         ConnectionCallbacks, OnConnectionFailedListener {
@@ -126,6 +127,8 @@ public class MainActivity extends AppCompatActivity implements
         listenerForRatingBar();
         listenerForDollarSpinner();
         listenerForCategorySpinner();
+
+        OnFeedMe();
     }
 
 
@@ -229,6 +232,34 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    public void OnFeedMe(){
+        Button FeedMe = (Button) findViewById(R.id.FeedMeButton);
+        FeedMe.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(MainActivity.this, Main2Activity.class);
+                Bundle params = new Bundle();
+
+                RatingBar rating = (RatingBar) findViewById(R.id.ratingBar);
+                String RatingParam = String.valueOf(rating.getRating());
+
+                Spinner dollars = (Spinner) findViewById(R.id.spinner);
+                String DollarParam = dollars.getSelectedItem().toString();
+
+                Spinner categories = (Spinner) findViewById(R.id.spinner2);
+                String CategoryParam = categories.getSelectedItem().toString();
+
+                params.putString("DollarParam", DollarParam);
+                params.putString("RatingParam", RatingParam);
+                params.putString("CategoryParam", CategoryParam);
+
+                intent.putExtras(params);
+                startActivity(intent);
+            }
+        });
 
     }
 

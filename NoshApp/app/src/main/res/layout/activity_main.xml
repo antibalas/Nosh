@@ -43,11 +43,12 @@
         android:text="Feed Me"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button"
+        android:id="@+id/FeedMeButton"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:layout_below="@+id/spinner2"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="19dp" />
+        android:layout_marginTop="19dp"
+        android:onClick="OnFeedMe" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -55,7 +56,7 @@
         android:id="@+id/textView"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:layout_alignBottom="@+id/ratingBar"
-        android:layout_toEndOf="@+id/button"
+        android:layout_toEndOf="@+id/FeedMeButton"
         android:layout_marginBottom="14dp"
         android:text="Value" />
 
@@ -77,6 +78,6 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:layout_alignBaseline="@+id/spinner2"
         android:layout_alignBottom="@+id/spinner2"
-        android:layout_toEndOf="@+id/button" />
+        android:layout_toEndOf="@+id/FeedMeButton" />
 
 </RelativeLayout>
