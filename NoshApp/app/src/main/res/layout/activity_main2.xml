@@ -53,4 +53,12 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:layout_below="@+id/DollarView"
         android:layout_alignParentStart="true" />
+
+    <WebView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/CategoryView"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="38dp"
+        android:id="@+id/YelpView" />
 </RelativeLayout>

@@ -7,6 +7,8 @@ import android.widget.Button;
 import android.content.Intent;
 import android.widget.TextView;
 
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import org.w3c.dom.Text;
 
 public class Main2Activity extends AppCompatActivity {
@@ -19,6 +21,7 @@ public class Main2Activity extends AppCompatActivity {
 
         GoToMain();
         ViewParam();
+        WebView();
     }
 
     public void GoToMain(){
@@ -46,4 +49,10 @@ public class Main2Activity extends AppCompatActivity {
         category_param.setText(CategoryParam);
     }
 
+    public void WebView(){
+        WebView YelpView = (WebView) findViewById(R.id.YelpView);
+        YelpView.setWebViewClient(new WebViewClient());
+        YelpView.loadUrl("https://www.google.com/");
+        
+    }
 }
