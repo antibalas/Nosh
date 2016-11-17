@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.content.Intent;
-import android.widget.TextView;
 
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -20,14 +19,33 @@ public class FeedMeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        initGoBackButton();
-        DisplayParams displayParams = retrieveDisplayParams();
-        setViewParams(displayParams);
         final DisplayTask displayTask = new DisplayTask();
+        DisplayParams displayParams = retrieveDisplayParams();
+        initButtons(displayTask);
         displayTask.execute(displayParams);
     }
 
-    public void initGoBackButton() {
+    private void initButtons(final DisplayTask displayTask) {
+        initGoBackButton();
+        initLikeButton();
+        initDislikeButton(displayTask);
+    }
+
+    private void initDislikeButton(final DisplayTask displayTask) {
+        (findViewById(R.id.Dislike)).setOnClickListener
+            (new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    displayTask.displayNextYelpPage(getYelpView());
+                }
+        });
+    }
+
+    private void initLikeButton() {
+        //TODO
+    }
+
+    private void initGoBackButton() {
         Button GoBack = (Button) findViewById(R.id.GoBack);
         GoBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,15 +76,5 @@ public class FeedMeActivity extends AppCompatActivity {
         yelpView.setWebViewClient(new WebViewClient());
         yelpView.getSettings().setJavaScriptEnabled(true); //yelp requires
         return yelpView;                                   //this
-    }
-
-    private void setViewParams(final DisplayParams displayParams) {
-        setViewParam(R.id.RatingView, displayParams.getRating());
-        setViewParam(R.id.DollarView, displayParams.getDollars());
-        setViewParam(R.id.CategoryView, displayParams.getCategory());
-    }
-
-    private void setViewParam(final int id, final String param) {
-        ((TextView) findViewById(id)).setText(param);
     }
 }

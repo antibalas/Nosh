@@ -15,8 +15,8 @@ import java.util.Stack;
 public class DisplayTask extends
         AsyncTask<DisplayParams, Void, Pair<WebView, Response>> {
 
-    List<Business> businessList;
-    int businessListIndex = 0;
+    private List<Business> businessList;
+    private int businessListIndex = 0;
 
     @Override
     public Pair<WebView, Response> doInBackground(final DisplayParams... displayParams_) {

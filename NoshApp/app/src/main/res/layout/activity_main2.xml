@@ -8,15 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.jkapps.android.noshapp.Main2Activity">
-
-    <TextView
-        android:text="Second Activity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView4"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+    tools:context="com.jkapps.android.noshapp.FeedMeActivity">
 
     <Button
         android:text="Go Back"
@@ -26,39 +18,32 @@
         android:layout_alignParentStart="true"
         android:id="@+id/GoBack" />
 
-    <TextView
-        android:text="Rating Value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:id="@+id/RatingView"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:layout_below="@+id/GoBack"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:text="Dollar Value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/DollarView"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:layout_below="@+id/RatingView"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:text="Category Value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/CategoryView"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:layout_below="@+id/DollarView"
-        android:layout_alignParentStart="true" />
-
     <WebView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/CategoryView"
+        android:layout_below="@+id/GoBack"
+        android:layout_above="@+id/Like"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="38dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:id="@+id/YelpView" />
+
+    <Button
+        android:text="Dislike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="30dp"
+        android:id="@+id/Dislike" />
+
+    <Button
+        android:text="Like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="30dp"
+        android:id="@+id/Like" />
+
 </RelativeLayout>
