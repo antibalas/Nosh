@@ -56,39 +56,6 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
-    private static void logBusiness(String tag, Business business) {
-        Log.d(tag, "URL: " + business.getUrl());
-        Log.d(tag, "Name: " + business.getName());
-        Log.d(tag, "Price: " + business.getPrice());
-        Log.d(tag, "Rating: " + business.getRating());
-        Log.d(tag, "Categories: " + business.getCategories());
-        Log.d(tag, "Coordinates: " + business.getCoordinates());
-    }
-
-    private void testAPIGateway() {
-        // we should do this with an AsyncTask
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Pair<String,String> latalong = latalong();
-                    Stack<Pair<String, String>> params = new Stack<>();
-                    params.push(new Pair<>("latitude", latalong.first));
-                    params.push(new Pair<>("longitude", latalong.second));
-                    params.push(new Pair<>("limit", "3"));
-
-                    for (Business business :
-                         APIGateway.hitGateway("getFromYelp", params,
-                                               new GetFromYelpDeserializer())
-                                   .getBusinesses())
-                        logBusiness("testAPIGateway", business);
-                } catch (Exception e) {
-                    Log.d("onCreate", Log.getStackTraceString(e));
-                }
-            }
-        }).start();
-    }
-
     private static void testYelpBiz(){
         String id = "gary-danko-san-francisco";
         YelpBizClient yelpBizClient = new YelpBizClient();
@@ -121,7 +88,6 @@ public class MainActivity extends AppCompatActivity implements
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        testAPIGateway();
        // testYelpBiz();
 
         listenerForRatingBar();
@@ -217,9 +183,15 @@ public class MainActivity extends AppCompatActivity implements
             longitude = mLastLocation.getLongitude();
             latitude = mLastLocation.getLatitude();
         }
+
+        /*
         String lat = Double.toString(latitude);
         String log = Double.toString(longitude);
+        */
 
+        //TODO: don't hard-code these
+        String lat = "36.9741";
+        String log = "-122.0308";
 
         return new Pair<>(lat,log);
     }
@@ -240,7 +212,7 @@ public class MainActivity extends AppCompatActivity implements
         FeedMe.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Intent intent = new Intent(MainActivity.this, Main2Activity.class);
+                Intent intent = new Intent(MainActivity.this, FeedMeActivity.class);
                 Bundle params = new Bundle();
 
                 RatingBar rating = (RatingBar) findViewById(R.id.ratingBar);
@@ -252,9 +224,13 @@ public class MainActivity extends AppCompatActivity implements
                 Spinner categories = (Spinner) findViewById(R.id.spinner2);
                 String CategoryParam = categories.getSelectedItem().toString();
 
+                final Pair<String, String> latalong = latalong();
+
                 params.putString("DollarParam", DollarParam);
                 params.putString("RatingParam", RatingParam);
                 params.putString("CategoryParam", CategoryParam);
+                params.putString("Latitude", latalong.first);
+                params.putString("Longitude", latalong.second);
 
                 intent.putExtras(params);
                 startActivity(intent);

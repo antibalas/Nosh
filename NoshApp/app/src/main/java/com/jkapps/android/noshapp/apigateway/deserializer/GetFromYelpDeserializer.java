@@ -4,7 +4,6 @@ import com.google.gson.GsonBuilder;
 import com.jkapps.android.noshapp.apigateway.Business;
 import com.jkapps.android.noshapp.apigateway.Response;
 
-import android.util.Log;
 import android.util.Pair;
 
 import java.util.List;
@@ -12,22 +11,8 @@ import java.util.Stack;
 
 public class GetFromYelpDeserializer implements Deserializer {
 
-    private static final int MAX_LOGCAT_STR_SIZE = 1000;
-
-    //logcat caps strings at 1000 chars which may not be big enough, so we
-    //can just break it down into smaller strings and print those
-    private static void logBigString(final String tag, final String str) {
-        for (int i = 0; i <= str.length() / MAX_LOGCAT_STR_SIZE; ++i) {
-            final int start = i * MAX_LOGCAT_STR_SIZE;
-            final int end = (i + 1) * MAX_LOGCAT_STR_SIZE;
-            Log.d(tag, str.substring(start, end > str.length() ?
-                    str.length() : end));
-        }
-    }
-
     @Override
     public Response deserialize(String rawJson) {
-        logBigString("deserialize", rawJson);
         Stack<Business> businesses = new Stack<>();
         for (GetFromYelpFormat.Body body : getFormat(rawJson).getBody())
             businesses.push(generateBusiness(body));

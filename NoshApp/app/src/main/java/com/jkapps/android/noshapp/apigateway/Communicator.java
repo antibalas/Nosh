@@ -33,5 +33,4 @@ class Communicator {
 
         return response;
     }
-
 }
