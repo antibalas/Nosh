@@ -1,19 +1,23 @@
-package com.jkapps.android.noshapp.yelppageparams;
+package com.jkapps.android.noshapp.yelppage;
 
-public class YelpPageParams {
+import android.webkit.WebView;
+
+public class DisplayParams {
 
     private final String category;
     private final String rating;
     private final String dollars;
     private final String latitude;
     private final String longitude;
+    private final WebView yelpView;
 
-    private YelpPageParams(final Builder builder) {
+    private DisplayParams(final Builder builder) {
         category  = builder.category;
         rating    = builder.rating;
-        dollars = builder.dollars;
+        dollars   = builder.dollars;
         longitude = builder.longitude;
         latitude  = builder.latitude;
+        yelpView  = builder.yelpView;
     }
 
     public String getCategory () { return category; }
@@ -21,6 +25,7 @@ public class YelpPageParams {
     public String getDollars() { return dollars; }
     public String getLatitude() { return latitude; }
     public String getLongitude() { return longitude; }
+    public WebView getYelpView() { return yelpView; }
 
     public static class Builder {
 
@@ -29,6 +34,7 @@ public class YelpPageParams {
         private String dollars;
         private String longitude;
         private String latitude;
+        private WebView yelpView;
 
         public Builder withCategory(final String category) {
             this.category = category;
@@ -55,6 +61,11 @@ public class YelpPageParams {
             return this;
         }
 
-        public YelpPageParams build() { return new YelpPageParams(this); }
+        public Builder withYelpView(final WebView yelpView) {
+            this.yelpView = yelpView;
+            return this;
+        }
+
+        public DisplayParams build() { return new DisplayParams(this); }
     }
 }
