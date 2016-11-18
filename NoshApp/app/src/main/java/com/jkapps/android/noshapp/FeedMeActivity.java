@@ -4,14 +4,16 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.jkapps.android.noshapp.yelppage.DisplayParams;
 import com.jkapps.android.noshapp.yelppage.DisplayTask;
+import com.jkapps.android.noshapp.yelppage.YelpWebView;
+import com.jkapps.android.noshapp.yelppage.YelpWebViewClient;
 
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebChromeClient;
 import android.widget.Button;
 import android.content.Intent;
 
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 public class FeedMeActivity extends AppCompatActivity {
 
@@ -33,12 +35,12 @@ public class FeedMeActivity extends AppCompatActivity {
 
     private void initDislikeButton(final DisplayTask displayTask) {
         (findViewById(R.id.Dislike)).setOnClickListener
-            (new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    displayTask.displayNextYelpPage(getYelpView());
-                }
-        });
+                (new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        displayTask.displayNextYelpPage(getYelpView());
+                    }
+                });
     }
 
     private void initLikeButton() {
@@ -71,10 +73,21 @@ public class FeedMeActivity extends AppCompatActivity {
         return getIntent().getExtras().getString(param);
     }
 
-    private WebView getYelpView() {
-        final WebView yelpView = (WebView) findViewById(R.id.YelpView);
-        yelpView.setWebViewClient(new WebViewClient());
-        yelpView.getSettings().setJavaScriptEnabled(true); //yelp requires
-        return yelpView;                                   //this
+    private YelpWebView getYelpView() {
+        final YelpWebView yelpView = (YelpWebView) findViewById(R.id.YelpView);
+        yelpView.getSettings().setJavaScriptEnabled(true);
+
+        final YelpWebViewClient yelpWebViewClient = new YelpWebViewClient();
+        yelpView.setWebViewClient(yelpWebViewClient);
+        yelpView.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public void onProgressChanged(final WebView webView,
+                                          final int progress) {
+                if (progress == 100)
+                    yelpWebViewClient.setDone();
+            }
+        });
+
+        return yelpView;
     }
 }
