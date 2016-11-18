@@ -1,7 +1,5 @@
 package com.jkapps.android.noshapp.yelppage;
 
-import android.webkit.WebView;
-
 public class DisplayParams {
 
     private final String category;
@@ -9,7 +7,7 @@ public class DisplayParams {
     private final String dollars;
     private final String latitude;
     private final String longitude;
-    private final WebView yelpView;
+    private final YelpWebView yelpView;
 
     private DisplayParams(final Builder builder) {
         category  = builder.category;
@@ -25,7 +23,7 @@ public class DisplayParams {
     public String getDollars() { return dollars; }
     public String getLatitude() { return latitude; }
     public String getLongitude() { return longitude; }
-    public WebView getYelpView() { return yelpView; }
+    public YelpWebView getYelpView() { return yelpView; }
 
     public static class Builder {
 
@@ -34,7 +32,7 @@ public class DisplayParams {
         private String dollars;
         private String longitude;
         private String latitude;
-        private WebView yelpView;
+        private YelpWebView yelpView;
 
         public Builder withCategory(final String category) {
             this.category = category;
@@ -61,7 +59,7 @@ public class DisplayParams {
             return this;
         }
 
-        public Builder withYelpView(final WebView yelpView) {
+        public Builder withYelpView(final YelpWebView yelpView) {
             this.yelpView = yelpView;
             return this;
         }
