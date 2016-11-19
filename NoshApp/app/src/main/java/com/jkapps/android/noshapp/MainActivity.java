@@ -11,20 +11,15 @@ import android.util.Pair;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
-import com.jkapps.android.noshapp.apigateway.APIGateway;
-import com.jkapps.android.noshapp.apigateway.Business;
-import com.jkapps.android.noshapp.apigateway.deserializer.GetFromYelpDeserializer;
 import com.jkapps.android.noshapp.apigateway.getyelpbizinfo.YelpBizClient;
 import com.jkapps.android.noshapp.apigateway.getyelpbizinfo.YelpBizListener;
+import com.jkapps.android.noshapp.uber.Configuration;
 
 import android.location.Location;
 
 
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
-
-
-import java.util.Stack;
 
 import android.view.View;
 import android.widget.AdapterView;
@@ -56,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
-    private static void testYelpBiz(){
+    /*private static void testYelpBiz(){
         String id = "gary-danko-san-francisco";
         YelpBizClient yelpBizClient = new YelpBizClient();
         yelpBizClient.getYelpBizInfo(id, new YelpBizListener() {
@@ -74,10 +69,14 @@ public class MainActivity extends AppCompatActivity implements
             }
         });
 
-    }
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //initialize uber confiuration in a separate asyncTask
+        (new Configuration()).execute();
+
         //Create instance of GoogleApiClient.
         if (mGoogleApiClient == null) {
             mGoogleApiClient = new GoogleApiClient.Builder(this)

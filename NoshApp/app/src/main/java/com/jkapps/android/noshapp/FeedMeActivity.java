@@ -1,13 +1,15 @@
 package com.jkapps.android.noshapp;
 
-import android.support.v7.app.AppCompatActivity;
-
+import com.jkapps.android.noshapp.uber.Configuration;
 import com.jkapps.android.noshapp.yelppage.DisplayParams;
 import com.jkapps.android.noshapp.yelppage.DisplayTask;
 import com.jkapps.android.noshapp.yelppage.YelpWebView;
 import com.jkapps.android.noshapp.yelppage.YelpWebViewClient;
+import com.uber.sdk.android.rides.RideRequestButton;
 
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.widget.Button;
@@ -22,29 +24,48 @@ public class FeedMeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         final DisplayTask displayTask = new DisplayTask();
-        DisplayParams displayParams = retrieveDisplayParams();
-        initButtons(displayTask);
+        final RideRequestButton rideRequestButton = getRideRequestButton();
+        DisplayParams displayParams = retrieveDisplayParams(rideRequestButton);
+        initButtons(displayTask, displayParams);
         displayTask.execute(displayParams);
     }
 
-    private void initButtons(final DisplayTask displayTask) {
-        initGoBackButton();
-        initLikeButton();
-        initDislikeButton(displayTask);
+    private RideRequestButton getRideRequestButton() {
+        return ((RideRequestButton) findViewById(R.id.UberButton));
     }
 
-    private void initDislikeButton(final DisplayTask displayTask) {
+    private void initButtons(final DisplayTask displayTask,
+                             final DisplayParams displayParams) {
+        initGoBackButton();
+        initDislikeButton(displayTask, displayParams);
+        initUberButton(displayTask, displayParams.getRideRequestButton());
+    }
+
+    private void initDislikeButton(final DisplayTask displayTask,
+                                   final DisplayParams displayParams) {
         (findViewById(R.id.Dislike)).setOnClickListener
                 (new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        displayTask.displayNextYelpPage(getYelpView());
+                        displayTask.displayNextYelpPage(displayParams);
                     }
                 });
     }
 
-    private void initLikeButton() {
-        //TODO
+    /* There are 2 races we're concerned about with the uber button:
+     * 1) initializing it before it's been configured
+     * 2) allowing clicking before the ride parameters have been set
+     */
+    private void initUberButton(final DisplayTask displayTask,
+                                final RideRequestButton rideRequestButton) {
+        while (!Configuration.isInitialized()); //prevent race 1
+        /*rideRequestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                while (!displayTask.rideParametersSet); //prevent race 2
+                displayTask.rideParametersSet = false; //race
+            }
+        });*/
     }
 
     private void initGoBackButton() {
@@ -58,7 +79,8 @@ public class FeedMeActivity extends AppCompatActivity {
         });
     }
 
-    private DisplayParams retrieveDisplayParams() {
+    private DisplayParams retrieveDisplayParams
+            (final RideRequestButton rideRequestButton) {
         return (new DisplayParams.Builder())
                 .withCategory(getParam("CategoryParam"))
                 .withRating(getParam("RatingParam"))
@@ -66,6 +88,7 @@ public class FeedMeActivity extends AppCompatActivity {
                 .withLatitude(getParam("Latitude"))
                 .withLongitude(getParam("Longitude"))
                 .withYelpView(getYelpView())
+                .withRideRequestButton(rideRequestButton)
                 .build();
     }
 
@@ -91,3 +114,4 @@ public class FeedMeActivity extends AppCompatActivity {
         return yelpView;
     }
 }
+

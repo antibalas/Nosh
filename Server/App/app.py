@@ -31,7 +31,8 @@ def strip_business_info(business_json):
         "categories" : strip_business_info_(business_json, 'categories'),
         "url" : strip_business_info_(business_json, 'url'),
         "name" : strip_business_info_(business_json, 'name'),
-        "id" : strip_business_info_(business_json, 'id')
+        "id" : strip_business_info_(business_json, 'id'),
+        "location" : strip_business_info_(business_json, 'location')
     }
 
 #Here we can filter out businesses we don't want (based on rating, categories,

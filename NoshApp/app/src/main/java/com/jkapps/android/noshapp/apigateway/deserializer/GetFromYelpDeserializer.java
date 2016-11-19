@@ -2,6 +2,7 @@ package com.jkapps.android.noshapp.apigateway.deserializer;
 
 import com.google.gson.GsonBuilder;
 import com.jkapps.android.noshapp.apigateway.Business;
+import com.jkapps.android.noshapp.apigateway.Business.Location;
 import com.jkapps.android.noshapp.apigateway.Response;
 
 import android.util.Pair;
@@ -29,6 +30,7 @@ public class GetFromYelpDeserializer implements Deserializer {
                                                        (body.getCoordinates()))
                                        .withCategories(getCategories
                                                       (body.getCategories()))
+                                       .withLocation(body.getLocation())
                                        .build();
     }
 
@@ -70,6 +72,7 @@ public class GetFromYelpDeserializer implements Deserializer {
             private String price;
             private Category[] categories;
             private Coordinates coordinates;
+            private Location location;
 
             String getName() { return name; }
             String getUrl() { return url; }
@@ -77,6 +80,7 @@ public class GetFromYelpDeserializer implements Deserializer {
             String getPrice() { return price; }
             Category[] getCategories() { return categories; }
             Coordinates getCoordinates() { return coordinates; }
+            Location getLocation() { return location; }
 
             private static class Category {
 

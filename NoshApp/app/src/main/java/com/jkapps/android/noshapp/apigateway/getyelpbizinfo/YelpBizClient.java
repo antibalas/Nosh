@@ -12,7 +12,7 @@ import retrofit2.Retrofit;
 
 public class YelpBizClient {
 
-    private static final String BASE_URL = "https://zg5hawbfuh.execute-api.us-west-2.amazonaws.com/prod/";
+    /*private static final String BASE_URL = "https://zg5hawbfuh.execute-api.us-west-2.amazonaws.com/prod/";
     private static final String LOG_TAG = "Yelp Biz Client";
 
     public void getYelpBizInfo(String bizID, final YelpBizListener listener){
@@ -51,5 +51,5 @@ public class YelpBizClient {
             }
         });
 
-    }
+    }*/
 }

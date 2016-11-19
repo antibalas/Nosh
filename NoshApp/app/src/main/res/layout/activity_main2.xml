@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:uber="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_main2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,39 +12,46 @@
     tools:context="com.jkapps.android.noshapp.FeedMeActivity">
 
     <Button
-        android:text="Go Back"
+        android:text="Back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="30dp"
         android:id="@+id/GoBack" />
+
+    <Button
+        android:text="Next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="30dp"
+        android:id="@+id/Dislike" />
 
     <com.jkapps.android.noshapp.yelppage.YelpWebView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/GoBack"
-        android:layout_above="@+id/Like"
+        android:layout_above="@+id/UberButton"
         android:layout_alignParentStart="true"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:id="@+id/YelpView" />
 
-    <Button
-        android:text="Dislike"
+    <com.uber.sdk.android.rides.RideRequestButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="30dp"
-        android:id="@+id/Dislike" />
+        uber:ub__style="black"
+        android:id="@+id/UberButton" />
 
-    <Button
+    <!--<Button
         android:text="Like"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="30dp"
         android:id="@+id/Like" />
+        -->
 
 </RelativeLayout>

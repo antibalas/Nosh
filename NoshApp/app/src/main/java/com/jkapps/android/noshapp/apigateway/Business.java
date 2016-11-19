@@ -7,12 +7,14 @@ import java.util.List;
 //we can use the builder pattern here
 public class Business {
 
+
     private final String url;
     private final String name;
     private final double rating;
     private final String price;
     private final Pair<Double, Double> coordinates;
     private final List<String> categories;
+    private final Location location;
 
     private Business(final Builder builder) {
         this.url         = builder.url;
@@ -21,6 +23,7 @@ public class Business {
         this.price       = builder.price;
         this.coordinates = builder.coordinates;
         this.categories  = builder.categories;
+        this.location    = builder.location;
     }
 
     public String getUrl() { return url; }
@@ -29,6 +32,26 @@ public class Business {
     public String getPrice() { return price; }
     public Pair<Double, Double> getCoordinates() { return coordinates; }
     public List<String> getCategories() { return categories; }
+    public Location getLocation() { return location; }
+
+    public static class Location {
+
+        private String zip_code;
+        private String city;
+        private String state;
+        private String country;
+        private String address1;
+        private String address2;
+        private String address3;
+
+        public String getZipCode() { return zip_code; }
+        public String getCity() { return city; }
+        public String getState() { return state; }
+        public String getCountry() { return country; }
+        public String getAddress1() { return address1; }
+        public String getAddress2() { return address2; }
+        public String getAddress3() { return address3; }
+    }
 
     public static class Builder {
 
@@ -38,6 +61,7 @@ public class Business {
         private String price;
         private Pair<Double, Double> coordinates;
         private List<String> categories;
+        private Location location;
 
         public Builder withUrl(final String url) {
             this.url = url;
@@ -68,6 +92,12 @@ public class Business {
             this.categories = categories;
             return this;
         }
+
+        public Builder withLocation(final Location location) {
+            this.location = location;
+            return this;
+        }
+
 
         public Business build() { return new Business(this); }
     }

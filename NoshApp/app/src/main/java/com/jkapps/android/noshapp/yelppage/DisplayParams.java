@@ -1,5 +1,7 @@
 package com.jkapps.android.noshapp.yelppage;
 
+import com.uber.sdk.android.rides.RideRequestButton;
+
 public class DisplayParams {
 
     private final String category;
@@ -8,14 +10,16 @@ public class DisplayParams {
     private final String latitude;
     private final String longitude;
     private final YelpWebView yelpView;
+    private final RideRequestButton rideRequestButton;
 
     private DisplayParams(final Builder builder) {
-        category  = builder.category;
-        rating    = builder.rating;
-        dollars   = builder.dollars;
-        longitude = builder.longitude;
-        latitude  = builder.latitude;
-        yelpView  = builder.yelpView;
+        category          = builder.category;
+        rating            = builder.rating;
+        dollars           = builder.dollars;
+        longitude         = builder.longitude;
+        latitude          = builder.latitude;
+        yelpView          = builder.yelpView;
+        rideRequestButton = builder.rideRequestButton;
     }
 
     public String getCategory () { return category; }
@@ -24,6 +28,8 @@ public class DisplayParams {
     public String getLatitude() { return latitude; }
     public String getLongitude() { return longitude; }
     public YelpWebView getYelpView() { return yelpView; }
+    public RideRequestButton getRideRequestButton()
+        { return rideRequestButton; }
 
     public static class Builder {
 
@@ -33,6 +39,7 @@ public class DisplayParams {
         private String longitude;
         private String latitude;
         private YelpWebView yelpView;
+        private RideRequestButton rideRequestButton;
 
         public Builder withCategory(final String category) {
             this.category = category;
@@ -61,6 +68,12 @@ public class DisplayParams {
 
         public Builder withYelpView(final YelpWebView yelpView) {
             this.yelpView = yelpView;
+            return this;
+        }
+
+        public Builder withRideRequestButton
+                (final RideRequestButton rideRequestButton) {
+            this.rideRequestButton = rideRequestButton;
             return this;
         }
 
