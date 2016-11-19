@@ -30,7 +30,7 @@
         android:layout_marginRight="30dp"
         android:id="@+id/Dislike" />
 
-    <com.jkapps.android.noshapp.yelppage.YelpWebView
+    <com.jkapps.android.noshapp.display.yelp.YelpWebView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/GoBack"

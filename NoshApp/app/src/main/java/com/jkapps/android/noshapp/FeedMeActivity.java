@@ -1,15 +1,14 @@
 package com.jkapps.android.noshapp;
 
 import com.jkapps.android.noshapp.uber.Configuration;
-import com.jkapps.android.noshapp.yelppage.DisplayParams;
-import com.jkapps.android.noshapp.yelppage.DisplayTask;
-import com.jkapps.android.noshapp.yelppage.YelpWebView;
-import com.jkapps.android.noshapp.yelppage.YelpWebViewClient;
+import com.jkapps.android.noshapp.display.DisplayParams;
+import com.jkapps.android.noshapp.display.DisplayTask;
+import com.jkapps.android.noshapp.display.yelp.YelpWebView;
+import com.jkapps.android.noshapp.display.yelp.YelpWebViewClient;
 import com.uber.sdk.android.rides.RideRequestButton;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Pair;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.widget.Button;
