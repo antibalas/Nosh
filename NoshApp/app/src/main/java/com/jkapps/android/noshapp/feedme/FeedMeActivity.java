@@ -1,17 +1,16 @@
-package com.jkapps.android.noshapp;
+package com.jkapps.android.noshapp.feedme;
 
-import com.jkapps.android.noshapp.display.DisplayParams;
-import com.jkapps.android.noshapp.display.DisplayTask;
-import com.jkapps.android.noshapp.display.yelp.YelpWebView;
-import com.jkapps.android.noshapp.display.yelp.YelpWebViewClient;
+import com.jkapps.android.noshapp.R;
+import com.jkapps.android.noshapp.feedme.display.DisplayParams;
+import com.jkapps.android.noshapp.feedme.display.DisplayTask;
+import com.jkapps.android.noshapp.feedme.yelp.YelpWebView;
+import com.jkapps.android.noshapp.feedme.yelp.YelpWebViewClient;
 import com.uber.sdk.android.rides.RideRequestButton;
+import com.jkapps.android.noshapp.feedme.buttons.InitializeAll;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.webkit.WebChromeClient;
-import android.widget.Button;
-import android.content.Intent;
 
 import android.webkit.WebView;
 
@@ -25,10 +24,11 @@ public class FeedMeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         final DisplayTask displayTask = new DisplayTask();
-        final RideRequestButton rideRequestButton = getRideRequestButton();
-        DisplayParams displayParams = retrieveDisplayParams(rideRequestButton);
-        displayTask.execute(displayParams);      //order of these two
-        initButtons(displayTask, displayParams); //is very important
+        final RideRequestButton uberButton = getRideRequestButton();
+        DisplayParams displayParams = retrieveDisplayParams(uberButton);
+        displayTask.execute(displayParams);
+        (new InitializeAll()).initializeButtons
+                (displayTask, uberButton, displayParams, FeedMeActivity.this);
     }
 
     /* There are 2 races we're concerned about with the uber button:
@@ -45,49 +45,8 @@ public class FeedMeActivity extends AppCompatActivity {
         return ((RideRequestButton) findViewById(R.id.UberButton));
     }
 
-    private void initButtons(final DisplayTask displayTask,
-                             final DisplayParams displayParams) {
-        initGoBackButton();
-        initDislikeButton(displayTask, displayParams);
-        initOverlapUberButton(displayParams.getRideRequestButton());
-    }
-
-    private void initDislikeButton(final DisplayTask displayTask,
-                                   final DisplayParams displayParams) {
-        (findViewById(R.id.Dislike)).setOnClickListener
-                (new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        displayTask.displayNextYelpPage(displayParams);
-                    }
-                });
-    }
-
-    private void initOverlapUberButton
-            (final RideRequestButton rideRequestButton) {
-        final Button overlapUberButton =
-                ((Button) findViewById(R.id.OverlapUberButton));
-        overlapUberButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                rideRequestButton.callOnClick();
-            }
-        });
-    }
-
-    private void initGoBackButton() {
-        Button GoBack = (Button) findViewById(R.id.GoBack);
-        GoBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(FeedMeActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
-
     private DisplayParams retrieveDisplayParams
-            (final RideRequestButton rideRequestButton) {
+            (final RideRequestButton uberButton) {
         return (new DisplayParams.Builder())
                 .withCategory(getParam("CategoryParam"))
                 .withRating(getParam("RatingParam"))
@@ -95,7 +54,7 @@ public class FeedMeActivity extends AppCompatActivity {
                 .withLatitude(getParam("Latitude"))
                 .withLongitude(getParam("Longitude"))
                 .withYelpView(getYelpView())
-                .withRideRequestButton(rideRequestButton)
+                .withRideRequestButton(uberButton)
                 .build();
     }
 
@@ -117,7 +76,6 @@ public class FeedMeActivity extends AppCompatActivity {
                     yelpWebViewClient.setDone();
             }
         });
-
         return yelpView;
     }
 }

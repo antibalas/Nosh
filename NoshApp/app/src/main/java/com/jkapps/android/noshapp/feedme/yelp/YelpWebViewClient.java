@@ -1,11 +1,9 @@
-package com.jkapps.android.noshapp.display.yelp;
+package com.jkapps.android.noshapp.feedme.yelp;
 
 import android.graphics.Bitmap;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-
-import com.jkapps.android.noshapp.display.yelp.YelpWebView;
 
 public class YelpWebViewClient extends WebViewClient {
 

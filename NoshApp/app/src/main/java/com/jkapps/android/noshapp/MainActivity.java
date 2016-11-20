@@ -11,8 +11,7 @@ import android.util.Pair;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
-import com.jkapps.android.noshapp.apigateway.getyelpbizinfo.YelpBizClient;
-import com.jkapps.android.noshapp.apigateway.getyelpbizinfo.YelpBizListener;
+import com.jkapps.android.noshapp.feedme.FeedMeActivity;
 import com.jkapps.android.noshapp.uber.Configuration;
 
 import android.location.Location;

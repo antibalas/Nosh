@@ -1,6 +1,6 @@
-package com.jkapps.android.noshapp.display;
+package com.jkapps.android.noshapp.feedme.display;
 
-import com.jkapps.android.noshapp.display.yelp.YelpWebView;
+import com.jkapps.android.noshapp.feedme.yelp.YelpWebView;
 import com.uber.sdk.android.rides.RideRequestButton;
 
 public class DisplayParams {

@@ -1,4 +1,4 @@
-package com.jkapps.android.noshapp.display;
+package com.jkapps.android.noshapp.feedme.display;
 
 import android.os.AsyncTask;
 import android.view.View;
@@ -8,6 +8,7 @@ import com.jkapps.android.noshapp.apigateway.APIGateway;
 import com.jkapps.android.noshapp.apigateway.deserializer.GetFromYelpDeserializer;
 import com.jkapps.android.noshapp.apigateway.Response;
 import com.jkapps.android.noshapp.apigateway.Business;
+import com.jkapps.android.noshapp.feedme.display.DisplayParams;
 import com.jkapps.android.noshapp.uber.Summoner;
 import com.jkapps.android.noshapp.uber.SummonerParams;
 import com.uber.sdk.android.rides.RideRequestButton;

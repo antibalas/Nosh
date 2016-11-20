@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.jkapps.android.noshapp.FeedMeActivity">
+    tools:context="com.jkapps.android.noshapp.feedme.FeedMeActivity">
 
     <Button
         android:text="Back"
@@ -30,7 +30,7 @@
         android:layout_marginRight="30dp"
         android:id="@+id/Dislike" />
 
-    <com.jkapps.android.noshapp.display.yelp.YelpWebView
+    <com.jkapps.android.noshapp.feedme.yelp.YelpWebView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/GoBack"

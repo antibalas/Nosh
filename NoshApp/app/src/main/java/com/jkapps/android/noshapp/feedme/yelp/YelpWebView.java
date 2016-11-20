@@ -1,4 +1,4 @@
-package com.jkapps.android.noshapp.display.yelp;
+package com.jkapps.android.noshapp.feedme.yelp;
 
 import android.content.Context;
 import android.util.AttributeSet;
