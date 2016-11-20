@@ -72,7 +72,7 @@ public class DisplayTask extends
                 while (businessList == null)
                     businessListLock.wait();
             }
-        } catch (InterruptedException e) {}
+        } catch (InterruptedException e) { throw new RuntimeException(e); }
 
         //start over if we've gone through the whole list
         if (businessListIndex > businessList.size() - 1)

@@ -1,6 +1,5 @@
 package com.jkapps.android.noshapp;
 
-import com.jkapps.android.noshapp.uber.Configuration;
 import com.jkapps.android.noshapp.display.DisplayParams;
 import com.jkapps.android.noshapp.display.DisplayTask;
 import com.jkapps.android.noshapp.display.yelp.YelpWebView;
@@ -16,6 +15,9 @@ import android.content.Intent;
 
 import android.webkit.WebView;
 
+import static com.jkapps.android.noshapp.uber.Configuration.initialized;
+import static com.jkapps.android.noshapp.uber.Configuration.initializedLock;
+
 public class FeedMeActivity extends AppCompatActivity {
 
     @Override
@@ -25,11 +27,21 @@ public class FeedMeActivity extends AppCompatActivity {
         final DisplayTask displayTask = new DisplayTask();
         final RideRequestButton rideRequestButton = getRideRequestButton();
         DisplayParams displayParams = retrieveDisplayParams(rideRequestButton);
-        initButtons(displayTask, displayParams);
-        displayTask.execute(displayParams);
+        displayTask.execute(displayParams);      //order of these two
+        initButtons(displayTask, displayParams); //is very important
     }
 
+    /* There are 2 races we're concerned about with the uber button:
+     * 1) initializing it before it's been configured
+     * 2) allowing clicking before the ride parameters have been set
+     */
     private RideRequestButton getRideRequestButton() {
+        try {
+            synchronized (initializedLock) { //prevent race 1
+                while (!initialized)
+                    initializedLock.wait();
+            }
+        } catch (InterruptedException e) { throw new RuntimeException(e); }
         return ((RideRequestButton) findViewById(R.id.UberButton));
     }
 
@@ -37,7 +49,7 @@ public class FeedMeActivity extends AppCompatActivity {
                              final DisplayParams displayParams) {
         initGoBackButton();
         initDislikeButton(displayTask, displayParams);
-        initUberButton(displayTask, displayParams.getRideRequestButton());
+        initOverlapUberButton(displayParams.getRideRequestButton());
     }
 
     private void initDislikeButton(final DisplayTask displayTask,
@@ -51,20 +63,16 @@ public class FeedMeActivity extends AppCompatActivity {
                 });
     }
 
-    /* There are 2 races we're concerned about with the uber button:
-     * 1) initializing it before it's been configured
-     * 2) allowing clicking before the ride parameters have been set
-     */
-    private void initUberButton(final DisplayTask displayTask,
-                                final RideRequestButton rideRequestButton) {
-        while (!Configuration.isInitialized()); //prevent race 1
-        /*rideRequestButton.setOnClickListener(new View.OnClickListener() {
+    private void initOverlapUberButton
+            (final RideRequestButton rideRequestButton) {
+        final Button overlapUberButton =
+                ((Button) findViewById(R.id.OverlapUberButton));
+        overlapUberButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(final View view) {
-                while (!displayTask.rideParametersSet); //prevent race 2
-                displayTask.rideParametersSet = false; //race
+            public void onClick(View view) {
+                rideRequestButton.callOnClick();
             }
-        });*/
+        });
     }
 
     private void initGoBackButton() {

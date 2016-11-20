@@ -47,11 +47,14 @@
         uber:ub__style="black"
         android:id="@+id/UberButton" />
 
-    <!--<Button
-        android:text="Like"
+    <Button
+        android:background="@android:color/transparent"
+        android:layout_alignLeft="@+id/UberButton"
+        android:layout_alignRight="@+id/UberButton"
+        android:layout_alignTop="@+id/UberButton"
+        android:layout_alignBottom="@+id/UberButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/Like" />
-        -->
+        android:id="@+id/OverlapUberButton" />
 
 </RelativeLayout>
