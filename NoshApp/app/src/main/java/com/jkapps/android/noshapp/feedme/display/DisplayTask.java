@@ -8,14 +8,14 @@ import com.jkapps.android.noshapp.apigateway.APIGateway;
 import com.jkapps.android.noshapp.apigateway.deserializer.GetFromYelpDeserializer;
 import com.jkapps.android.noshapp.apigateway.Response;
 import com.jkapps.android.noshapp.apigateway.Business;
-import com.jkapps.android.noshapp.feedme.display.DisplayParams;
-import com.jkapps.android.noshapp.uber.Summoner;
-import com.jkapps.android.noshapp.uber.SummonerParams;
+import com.jkapps.android.noshapp.uber.summoner.SummonerParams;
+import com.jkapps.android.noshapp.uber.summoner.SummonerTask;
 import com.uber.sdk.android.rides.RideRequestButton;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -27,7 +27,8 @@ public class DisplayTask extends
 
     private final Lock businessListLock = new ReentrantLock();
 
-    public boolean rideParametersSet = false;
+    public AtomicBoolean rideParametersSet = new AtomicBoolean(false);
+    public final Lock rideParametersSetLock = new ReentrantLock();
 
     @Override
     public DisplayParams doInBackground
@@ -79,9 +80,8 @@ public class DisplayTask extends
         if (businessListIndex > businessList.size() - 1)
             businessListIndex = 0;
 
-        Summoner.setRideParameters(getSummonerParams
-                (displayParams.getRideRequestButton()));
-        rideParametersSet = true;
+        (new SummonerTask()).execute
+                (getSummonerParams(displayParams.getRideRequestButton()));
 
         displayParams.getYelpView()
                 .loadUrl(businessList.get(businessListIndex++).getUrl());
@@ -99,6 +99,7 @@ public class DisplayTask extends
                 .withCoordinates(currentBusiness.getCoordinates())
                 .withName(currentBusiness.getName())
                 .withRideRequestButton(rideRequestButton)
+                .withDisplayTask(this)
                 .build();
     }
 }

@@ -13,6 +13,7 @@ public class DislikeInitializer implements Initializer {
                          .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                initializerParams.getDisplayTask().rideParametersSet.set(false);
                 initializerParams.getDisplayTask()
                                  .displayNextYelpPage
                                          (initializerParams.getDisplayParams());

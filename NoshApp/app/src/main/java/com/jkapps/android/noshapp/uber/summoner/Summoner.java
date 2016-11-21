@@ -1,4 +1,4 @@
-package com.jkapps.android.noshapp.uber;
+package com.jkapps.android.noshapp.uber.summoner;
 
 import com.uber.sdk.android.rides.RideParameters;
 

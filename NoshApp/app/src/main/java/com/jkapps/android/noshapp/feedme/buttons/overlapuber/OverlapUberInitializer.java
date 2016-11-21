@@ -1,5 +1,6 @@
 package com.jkapps.android.noshapp.feedme.buttons.overlapuber;
 
+import android.os.AsyncTask;
 import android.view.View;
 
 import com.jkapps.android.noshapp.feedme.buttons.Initializer;
@@ -13,7 +14,8 @@ public class OverlapUberInitializer implements Initializer {
                          .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                initializerParams.getUberButton().callOnClick();
+                (new OnClickTask()).executeOnExecutor
+                        (AsyncTask.THREAD_POOL_EXECUTOR, initializerParams);
             }
         });
     }
