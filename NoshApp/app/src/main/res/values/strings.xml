@@ -8,10 +8,14 @@
     </string-array>
 
     <string-array name="Categories">
-        <item>Random</item>
+        <item>American</item>
         <item>Pizza</item>
+        <item>Japanese</item>
         <item>Chinese</item>
-        <item>Burgers</item>
+        <item>Indian</item>
+        <item>Thai</item>
+        <item>Mexican</item>
+        <item>Italian</item>
     </string-array>
 
     <string name="latitude_label">Latitude</string>

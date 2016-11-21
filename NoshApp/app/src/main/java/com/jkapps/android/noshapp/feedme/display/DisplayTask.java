@@ -39,6 +39,7 @@ public class DisplayTask extends
 
         paramStack.push(new Pair<>("latitude", displayParams.getLatitude()));
         paramStack.push(new Pair<>("longitude", displayParams.getLongitude()));
+        paramStack.push(new Pair<>("term", displayParams.getCategory()));
         //TODO push other displayParams
 
         final Response response = hitGateway(paramStack);
