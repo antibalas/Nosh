@@ -12,7 +12,7 @@ import retrofit2.Retrofit;
 
 public class YelpBizClient {
 
-    /*private static final String BASE_URL = "https://zg5hawbfuh.execute-api.us-west-2.amazonaws.com/prod/";
+    private static final String BASE_URL = "https://zg5hawbfuh.execute-api.us-west-2.amazonaws.com/prod/";
     private static final String LOG_TAG = "Yelp Biz Client";
 
     public void getYelpBizInfo(String bizID, final YelpBizListener listener){
@@ -36,20 +36,21 @@ public class YelpBizClient {
         //Call retrofit asynchronously
         queryResponseCall.enqueue(new Callback<Response>() {
             @Override
-            public void onResponse(retrofit2.Response<Response> retrofitResponse) {
+            public void onResponse(Call<Response> call, retrofit2.Response<Response> retrofitResponse) {
                 Log.i(LOG_TAG, "Inside Yelp Biz Client - onResponse function");
                 Response response = retrofitResponse.body();
                 listener.success(response.getBody());
             }
 
             @Override
-            public void onFailure(Throwable t) {
+            public void onFailure(Call<Response> call, Throwable t) {
                 // Log error here since request failed
                 // Make error message visible
                 Log.i(LOG_TAG, "Inside Yelp Biz Client - onFailure function");
                 listener.failure();
             }
+
         });
 
-    }*/
+    }
 }
