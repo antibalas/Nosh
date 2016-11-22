@@ -16,7 +16,6 @@ import com.jkapps.android.noshapp.uber.Configuration;
 
 import android.location.Location;
 
-
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 
@@ -125,15 +124,16 @@ public class MainActivity extends AppCompatActivity implements
             latitude = mLastLocation.getLatitude();
         }
 
-        /*
+
         String lat = Double.toString(latitude);
         String log = Double.toString(longitude);
-        */
+
 
         //TODO: don't hard-code these
-        String lat = "36.9741";
-        String log = "-122.0308";
-
+        //String lat = "36.9741";
+        //String log = "-122.0308";
+        Log.d("lat", lat);
+        Log.d("log", log);
         return new Pair<>(lat,log);
     }
 

@@ -21,5 +21,6 @@
     <string name="latitude_label">Latitude</string>
     <string name="longitude_label">Longitude</string>
     <string name="no_location_detected">No location detected</string>
+    <string name="google_app_id">Nosh</string>
 
 </resources>
