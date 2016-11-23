@@ -58,20 +58,20 @@ public class GetFromYelpDeserializer implements Deserializer {
         return categoryStack;
     }
 
-    private static class GetFromYelpFormat {
+    protected static class GetFromYelpFormat {
 
-        private Body[] body;
+        protected Body[] body;
 
         Body[] getBody() { return body; }
 
-        private static class Body {
+        protected static class Body {
 
-            private String name;
-            private String url;
-            private double rating;
-            private String price;
-            private Category[] categories;
-            private Coordinates coordinates;
+            protected String name;
+            protected String url;
+            protected double rating;
+            protected String price;
+            protected Category[] categories;
+            protected Coordinates coordinates;
             private Location location;
 
             String getName() { return name; }
@@ -82,18 +82,18 @@ public class GetFromYelpDeserializer implements Deserializer {
             Coordinates getCoordinates() { return coordinates; }
             Location getLocation() { return location; }
 
-            private static class Category {
+            protected static class Category {
 
                 //we can either use the title or the alias here
-                private String title;
+                protected String title;
 
                 String getTitle() { return title; }
             }
 
-            private static class Coordinates {
+            protected static class Coordinates {
 
-                private double latitude;
-                private double longitude;
+                protected double latitude;
+                protected double longitude;
 
                 double getLatitude() { return latitude; }
                 double getLongitude() { return longitude; }
